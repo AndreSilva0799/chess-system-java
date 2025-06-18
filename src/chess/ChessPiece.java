@@ -16,4 +16,9 @@ public class ChessPiece extends Piece {
         return color;
     }
 
+    @Override
+    public String toString() {
+        return "R";
+    }
+
 }
