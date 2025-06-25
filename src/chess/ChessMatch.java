@@ -6,16 +6,24 @@ import boardgame.Position;
 import chess.pieces.King;
 import chess.pieces.Rook;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ChessMatch {
 
     private int turn;
     private Color currentPlayer;
     private Board board;
 
+    private List<Piece> piecesOnTheBoard = new ArrayList<>();
+    private List<Piece> capturedPieces = new ArrayList<>();
+
+
     public ChessMatch() {
         board = new Board(8,8);
         turn = 1;
         currentPlayer = Color.WHITE;
+
         initialSetup();
     }
 
@@ -58,6 +66,12 @@ public class ChessMatch {
         Piece p = board.removePiece(source);
         Piece capturedPiece = board.removePiece(target);
         board.placePiece(p, target);
+
+        if(capturedPiece != null){
+            piecesOnTheBoard.remove(capturedPiece);
+            capturedPieces.add(capturedPiece);
+        }
+
         return capturedPiece;
     }
 
@@ -90,6 +104,7 @@ public class ChessMatch {
     // utilizando o to position pra usar as coordenadas do sistema do xadrez primeiro indicando colun e depois linhas.
     private void placeNewPiece(char column, int row, ChessPiece piece){
         board.placePiece(piece, new ChessPosition(column,row).toPosition());
+        piecesOnTheBoard.add(piece);
     }
 
     //responsavel por iniciar a partida, colocando as peças nos tabuleiros
