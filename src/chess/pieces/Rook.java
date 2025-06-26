@@ -6,6 +6,7 @@ import chess.ChessPiece;
 import chess.Color;
 
 public class Rook extends ChessPiece {
+
     public Rook(Board board, Color color) {
         super(board, color);
     }
@@ -15,62 +16,48 @@ public class Rook extends ChessPiece {
         return "R";
     }
 
-    // movimetos possiveis da torre.
     @Override
     public boolean[][] possibleMoves() {
         boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()];
 
+        Position p = new Position(0, 0);
 
-
-        Position p = new Position(0,0);
-
-        // verificar acima
-
-        p.setValues(position.getRow() -1 , position.getColumn());
-        //enquanto a posição existir e não tiver uma peça nela, (Enquanto a posição estiver vaga)
+        // above
+        p.setValues(position.getRow() - 1, position.getColumn());
         while (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
             mat[p.getRow()][p.getColumn()] = true;
             p.setRow(p.getRow() - 1);
         }
-        // quando não tiver mais lugar de mover vago, entra nesse if pra ver se tem peça do oponente se sim deixa mover
         if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
             mat[p.getRow()][p.getColumn()] = true;
         }
 
-        // verifica esquerda
-        p.setValues(position.getRow() , position.getColumn() -1 );
-        //enquanto a posição existir e não tiver uma peça nela, (Enquanto a posição estiver vaga)
+        // left
+        p.setValues(position.getRow(), position.getColumn() - 1);
         while (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
             mat[p.getRow()][p.getColumn()] = true;
             p.setColumn(p.getColumn() - 1);
         }
-        // quando não tiver mais lugar de mover vago, entra nesse if pra ver se tem peça do oponente se sim deixa mover
         if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
             mat[p.getRow()][p.getColumn()] = true;
         }
 
-        // verifica Direita
-        p.setValues(position.getRow() , position.getColumn() +1 );
-        //enquanto a posição existir e não tiver uma peça nela, (Enquanto a posição estiver vaga)
+        // right
+        p.setValues(position.getRow(), position.getColumn() + 1);
         while (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
             mat[p.getRow()][p.getColumn()] = true;
             p.setColumn(p.getColumn() + 1);
         }
-        // quando não tiver mais lugar de mover vago, entra nesse if pra ver se tem peça do oponente se sim deixa mover
         if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
             mat[p.getRow()][p.getColumn()] = true;
         }
 
-
-        // verificar abaixo
-
-        p.setValues(position.getRow() +1 , position.getColumn());
-        //enquanto a posição existir e não tiver uma peça nela, (Enquanto a posição estiver vaga)
+        // below
+        p.setValues(position.getRow() + 1, position.getColumn());
         while (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
             mat[p.getRow()][p.getColumn()] = true;
             p.setRow(p.getRow() + 1);
         }
-        // quando não tiver mais lugar de mover vago, entra nesse if pra ver se tem peça do oponente se sim deixa mover
         if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
             mat[p.getRow()][p.getColumn()] = true;
         }
